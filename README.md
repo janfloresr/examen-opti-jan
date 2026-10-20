@@ -9,3 +9,5 @@ Examen argumentativo jannette
 - `js/ExperimentoMonteCarlo.js`: repeticiones y estadísticas
 - `js/Exportador.js`: archivos CSV
 - `js/app.js`: interfaz
+
+si abre index.html podrá ver la interfaz.
