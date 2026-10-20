@@ -10,4 +10,5 @@ Examen argumentativo jannette
 - `js/Exportador.js`: archivos CSV
 - `js/app.js`: interfaz
 
-si abre index.html podrá ver la interfaz.
+El link del Pages:
+https://janfloresr.github.io/examen-opti-jan/ 
