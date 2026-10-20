@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulación de calendarización · Monte Carlo</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="encabezado">
+    <h1>Simulación de calendarización de trabajos</h1>
+    <p>Monte Carlo, asignación aleatoria de máquinas con secuenciación FIFO</p>
+    <p>examen argumentativo</p>
+  </header>
+
+  <main>
+    <!-- 1. PARÁMETROS -->
+    <section class="tarjeta">
+      <h2>1. Parámetros</h2>
+      <p class="ayuda">
+        Para <strong>fijar</strong> un factor,
+        escribir mismo valor en mínimo y máximo.
+        Los valores "default" son los del PDF del examen.
+      </p>
+
+      <form id="formulario">
+        <div class="rejilla">
+          <label>Trabajos (mínimo)
+            <input type="number" id="minTrabajos" min="1" step="1" value="20">
+          </label>
+          <label>Trabajos (máximo)
+            <input type="number" id="maxTrabajos" min="1" step="1" value="30">
+          </label>
+          <label>Máquinas (mínimo)
+            <input type="number" id="minMaquinas" min="1" step="1" value="3">
+          </label>
+          <label>Máquinas (máximo)
+            <input type="number" id="maxMaquinas" min="1" step="1" value="5">
+          </label>
+          <label>Tamaños de trabajo (elementos)
+            <input type="text" id="tamanos" value="10, 20, 30">
+          </label>
+          <label>Rates (unidades por hora)
+            <input type="text" id="rates" value="5, 10, 15">
+          </label>
+          <label>Número de simulaciones
+            <input type="number" id="numSimulaciones" min="1" max="1000" step="1" value="20">
+          </label>
+          <label>Semilla (vacío = aleatoria)
+            <input type="number" id="semilla" min="0" step="1" placeholder="ej. 42">
+          </label>
+          <label>Fecha y hora de inicio
+            <input type="datetime-local" id="fechaInicio">
+          </label>
+        </div>
+
+        <div class="botones">
+          <button type="submit" class="principal">Ejecutar simulación</button>
+          <button type="button" id="btnRestaurar" class="secundario">Restaurar valores al default del PDF</button>
+        </div>
+      </form>
+
+      <div id="errores" class="errores" hidden></div>
+    </section>
+
+    <!-- 2. RESULTADOS -->
+    <section class="tarjeta" id="seccion-resultados" hidden>
+      <h2>2. Resultados de la simulación</h2>
+      <p class="ayuda" id="resumenParametros"></p>
+      <div class="estadisticas" id="estadisticas"></div>
+
+      <div class="botones">
+        <button type="button" id="btnCsvResultados">Descargar resultados (CSV)</button>
+        <button type="button" id="btnCsvTodas">Descargar secuenciación de todas las simulaciones (CSV)</button>
+      </div>
+
+      <p class="ayuda">Se puede hacer clic en una fila para ver detalles. Rosa = makespan máximo, verde = mínimo.</p>
+      <div class="tabla-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Simulación</th>
+              <th>Trabajos</th>
+              <th>Máquinas</th>
+              <th>Trabajos por tamaño</th>
+              <th>Makespan (h)</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoResultados"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. DETALLE DE UNA SIMULACIÓN -->
+    <section class="tarjeta" id="seccion-detalle" hidden>
+      <h2>3. Detalle de una simulación</h2>
+      <div class="botones">
+        <label>Simulación
+          <select id="selectorSimulacion"></select>
+        </label>
+        <button type="button" id="btnCsvUna" class="secundario">Descargar secuenciación de esta simulación en específico (CSV)</button>
+      </div>
+      <p class="ayuda" id="infoSimulacion"></p>
+
+      <div class="gantt" id="gantt"></div>
+
+      <div class="tabla-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Máquina</th>
+              <th>idTrabajo</th>
+              <th>fechaHoraInicio</th>
+              <th>fechaHoraFin</th>
+              <th>OrdenSecuenciacion</th>
+              <th>IdProducto</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpoSecuenciacion"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/GeneradorLCG.js"></script>
+  <script src="js/Parametros.js"></script>
+  <script src="js/Trabajo.js"></script>
+  <script src="js/Maquina.js"></script>
+  <script src="js/Simulacion.js"></script>
+  <script src="js/ExperimentoMonteCarlo.js"></script>
+  <script src="js/Exportador.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
